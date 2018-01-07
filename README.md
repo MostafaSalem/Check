@@ -39,6 +39,32 @@ For preprocessing, T1-w, T2-w, Pd-w, and FLAIR should be obtained for each patie
                     [baseline_folder]
                         t1_image, t2_image, pd_image, flair_image
                     [followup_folder]
+                        t1_image, t2_image, pd_image, flair_image
+          [patient_2_folder]
+                    [baseline_folder]
+                        t1_image, t2_image, pd_image, flair_image
+                    [followup_folder]
+                        t1_image, t2_image, pd_image, flair_image
+	     
+		 ....
+		 
+		 
+          [patient_n_folder]
+                    [baseline_folder]
+                        t1_image, t2_image, pd_image, flair_image
+                    [followup_folder]
+                        t1_image, t2_image, pd_image, flair_image, new-lesion-Mask (in case od training)
+```
+**Note: you have to choise which image space  you want to register to (PD space or FLAIR space). Also, you will be asked how many modality you want to use (only in obtaining the deformation fields).** You can skip patient folders by preceding the folder name with **'-'**
+
+## Training
+You can use **Train a LR model using Leave-One-Out** to train the LR model using a leave one out scheme. The new lesions mask should be in the follow-up folder for each patient. Also, **Train a cascade LR model using Leave-One-Out**  will train two LR model using a leave one out scheme. The second cascaded model will be trained using the all positive cases + the FP from the first model. Finally, you can use **Train a LR model (The full model)** and **Train a cascade LR model** to train a full model with your dataset. These models can be used for testing other datasets. The training module expects the dataset to be stored as:
+```
+[training_folder]
+          [patient_1_folder]
+                    [baseline_folder]
+                        t1_image, t2_image, pd_image, flair_image
+                    [followup_folder]
                         t1_image, t2_image, pd_image, flair_image, new-lesionMask (in case of training)
           [patient_2_folder]
                     [baseline_folder]
@@ -55,10 +81,6 @@ For preprocessing, T1-w, T2-w, Pd-w, and FLAIR should be obtained for each patie
                     [followup_folder]
                         t1_image, t2_image, pd_image, flair_image, new-lesion-Mask (in case od training)
 ```
-**Note: you have to choise which image space  you want to register to (PD space or FLAIR space). Also, you will be asked how many modality you want to use (only in obtaining the deformation fields).** You can skip patient folders by preceding the folder name with **'-'**
-
-## Training
-You can use **Train a LR model using Leave-One-Out** to train the LR model using a leave one out scheme. The new lesions mask should be in the follow-up folder for each patient. Also, **Train a cascade LR model using Leave-One-Out**  will train two LR model using a leave one out scheme. The second cascaded model will be trained using the all positive cases + the FP from the first model. Finally, you can use **Train a LR model (The full model)** and **Train a cascade LR model** to train a full model with your dataset. These models can be used for testing other datasets.
 **Note: you can skip patient folders by preceding the folder name with **'-'**
 
 ## Testing
